@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 
 template <typename T>
 int BusquedaBinaria(T x, std::vector<T> v, int ini, int fin){
@@ -33,4 +34,33 @@ int BusquedaBinaria_INV(T x, std::vector<T> v, int ini, int fin){
 		return BusquedaBinaria_INV(x,v,medio+1,fin);
 	}
 }
+
+template <typename T>
+int Partition(std::vector<T> &v, int ini, int fin){
+	T x=v[fin];
+	int i=ini;
+	for (int j=ini;j<fin;j++){
+		if(v[j]<=x){
+			T aux=v[j];
+			v[j]=v[i];
+			v[i]=aux;
+			i++;
+		}
+	}
+	T aux=v[i];
+	v[i]=v[fin];
+	v[fin]=aux;
+	return i;
+}
+
+template <typename T>
+void QuickSort(std::vector<T> &v, int ini, int fin){
+	//std::cout<<"ini: "<<ini<<", fin: "<<fin<<std::endl;
+	if(ini<fin){
+		int pivot = Partition(v, ini, fin);
+		QuickSort(v, ini, pivot-1);
+		QuickSort(v, pivot+1, fin);
+	}
+}
+
 
